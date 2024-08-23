@@ -1,4 +1,4 @@
-import { loginUserApi, TRegisterData } from '@api';
+import { loginUserApi, registerUserApi, TRegisterData } from '@api';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { TUser } from '@utils-types';
 import { setCookie } from '../../utils/cookie';
@@ -31,7 +31,7 @@ export const loginUser = createAsyncThunk(
 
 export const registerUser = createAsyncThunk(
   'user/registerUser',
-  async (regData: TRegisterData) => await loginUserApi(regData)
+  async (regData: TRegisterData) => await registerUserApi(regData)
 );
 
 export const userSlice = createSlice({
