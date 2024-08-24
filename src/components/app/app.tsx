@@ -20,12 +20,14 @@ import {
   useParams
 } from 'react-router-dom';
 import { ProtectedRoute } from '../protected-route/protected-route';
-import { useEffect, useState } from 'react';
-import { RootState, useSelector } from '../../services/store';
+import { useDispatch } from '../../services/store';
+import { checkUserAuth } from '../../services/slices/user-slice';
 
 const App = () => {
-  const { isAuthenticated } = useSelector((state: RootState) => state.user);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  dispatch(checkUserAuth());
 
   return (
     <>
@@ -35,12 +37,26 @@ const App = () => {
           <Route path='/' element={<ConstructorPage />} />
           <Route path='/feed' element={<Feed />} />
           <Route path='*' element={<NotFound404 />} />
-          <Route path='/login' element={<Login />} />
-          <Route path='/register' element={<Register />} />
+          <Route
+            path='/login'
+            element={
+              <ProtectedRoute onlyUnAuth>
+                <Login />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path='/register'
+            element={
+              <ProtectedRoute>
+                <Register />
+              </ProtectedRoute>
+            }
+          />
           <Route
             path='/forgot-password'
             element={
-              <ProtectedRoute isAuthorized={isAuthenticated}>
+              <ProtectedRoute>
                 <ForgotPassword />
               </ProtectedRoute>
             }
@@ -48,7 +64,7 @@ const App = () => {
           <Route
             path='/profile'
             element={
-              <ProtectedRoute isAuthorized={isAuthenticated}>
+              <ProtectedRoute>
                 <Profile />
               </ProtectedRoute>
             }
@@ -56,7 +72,7 @@ const App = () => {
           <Route
             path='/profile/orders'
             element={
-              <ProtectedRoute isAuthorized={isAuthenticated}>
+              <ProtectedRoute>
                 <ProfileOrders />
               </ProtectedRoute>
             }

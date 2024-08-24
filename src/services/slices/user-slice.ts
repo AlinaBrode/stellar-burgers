@@ -1,7 +1,8 @@
-import { loginUserApi, registerUserApi, TRegisterData } from '@api';
+import { getUserApi, loginUserApi, registerUserApi, TRegisterData } from '@api';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { TUser } from '@utils-types';
-import { setCookie } from '../../utils/cookie';
+import { getCookie, setCookie } from '../../utils/cookie';
+import { useDispatch } from '../store';
 
 interface TUserState {
   isAuthChecked: boolean;
@@ -34,10 +35,23 @@ export const registerUser = createAsyncThunk(
   async (regData: TRegisterData) => await registerUserApi(regData)
 );
 
+export const getUser = createAsyncThunk(
+  'user/getUser',
+  async () => await getUserApi()
+);
+
 export const userSlice = createSlice({
   name: 'user',
   initialState,
-  reducers: {},
+  reducers: {
+    authChecked: (state) => {
+      state.isAuthChecked = true;
+      console.log('authChecked. true');
+    },
+    setUserStorage: (state, action) => {
+      state.data = action.payload;
+    }
+  },
   extraReducers: (builder) => {
     builder
       .addCase(loginUser.pending, (state) => {
@@ -87,8 +101,37 @@ export const userSlice = createSlice({
         state.isAuthenticated = true;
         state.isAuthChecked = true;
         console.log('register user fulfilled', action.payload);
+      })
+      .addCase(getUser.pending, (state) => {
+        state.isAuthChecked = false;
+        console.log('getUser pending');
+      })
+      .addCase(getUser.rejected, (state) => {
+        state.isAuthChecked = true;
+        console.log('getUser rejected');
+      })
+      .addCase(getUser.fulfilled, (state, action) => {
+        state.data = action.payload.user;
+        state.isAuthChecked = true;
+        console.log('getUser fulfilled');
       });
   }
 });
+
+const { authChecked } = userSlice.actions;
+
+export const checkUserAuth = createAsyncThunk(
+  'user/checkUser',
+  async (_, { dispatch }) => {
+    console.log('check user auth 1');
+    try {
+      if (getCookie('accessToken')) {
+        await dispatch(getUser());
+      }
+    } finally {
+      dispatch(authChecked());
+    }
+  }
+);
 
 export default userSlice.reducer;
