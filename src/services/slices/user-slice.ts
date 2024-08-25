@@ -143,12 +143,11 @@ export const checkUserAuth = createAsyncThunk(
   }
 );
 
-export const logoutUser = createAsyncThunk(
+export const logoutUserAction = createAsyncThunk(
   'user/logoutUser',
   async (_, { dispatch }) => {
     logoutApi()
       .then(() => {
-        console.log('logout from server successful');
         localStorage.clear(); // очищаем refreshToken
         deleteCookie('accessToken'); // очищаем accessToken
         dispatch(userLogout()); // удаляем пользователя из хранилища

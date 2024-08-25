@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { useLocation } from 'react-router-dom';
 import { ProfileMenuUI } from '@ui';
 import { useDispatch } from '../../services/store';
-import { logoutUser } from '../../services/slices/user-slice';
+import { logoutUserAction } from '../../services/slices/user-slice';
 
 export const ProfileMenu: FC = () => {
   const { pathname } = useLocation();
@@ -10,7 +10,7 @@ export const ProfileMenu: FC = () => {
 
   const handleLogout = () => {
     console.log('dispatch logout user');
-    dispatch(logoutUser);
+    dispatch(logoutUserAction());
   };
 
   return <ProfileMenuUI handleLogout={handleLogout} pathname={pathname} />;
