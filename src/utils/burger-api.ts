@@ -229,14 +229,16 @@ export const updateUserApi = (user: Partial<TRegisterData>) =>
 
 export const logoutApi = () => {
   const logoutPath = `${URL}/auth/logout`;
-  console.log('logoutPath =', logoutPath);
+  const refreshTokenVal = localStorage.getItem('refreshToken');
+  console.log('logoutPath =', logoutPath, 'refreshTokenVal =', refreshTokenVal);
+
   return fetch(logoutPath, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json;charset=utf-8'
     },
     body: JSON.stringify({
-      token: localStorage.getItem('refreshToken')
+      token: refreshTokenVal
     })
   }).then((res) => checkResponse<TServerResponse<{}>>(res));
 };

@@ -85,6 +85,8 @@ export const userSlice = createSlice({
         state.isAuthenticated = true;
         state.isAuthChecked = true;
         console.log('user fulfilled', action.payload);
+        localStorage.setItem('refreshToken', action.payload.refreshToken);
+        setCookie('accessToken', action.payload.accessToken);
       })
       .addCase(registerUser.pending, (state) => {
         state.registerUserRequest = true;
