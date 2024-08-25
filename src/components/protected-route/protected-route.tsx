@@ -1,4 +1,4 @@
-import { ReactElement } from 'react';
+import { ReactElement, useEffect } from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
 import { RootState, useDispatch, useSelector } from '../../services/store';
 import { Preloader } from '@ui';
@@ -16,6 +16,8 @@ export const ProtectedRoute = ({
   const { isAuthChecked, data } = useSelector((state: RootState) => state.user);
   const location = useLocation();
   const dispatch = useDispatch();
+
+  useEffect(() => console.log('protected route data =', data), [data]);
 
   if (!isAuthChecked) {
     return <Preloader />;

@@ -1,13 +1,19 @@
-import { getUserApi, loginUserApi, registerUserApi, TRegisterData } from '@api';
+import {
+  getUserApi,
+  loginUserApi,
+  logoutApi,
+  registerUserApi,
+  TRegisterData
+} from '@api';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { TUser } from '@utils-types';
-import { getCookie, setCookie } from '../../utils/cookie';
+import { deleteCookie, getCookie, setCookie } from '../../utils/cookie';
 import { useDispatch } from '../store';
 
 interface TUserState {
   isAuthChecked: boolean;
   isAuthenticated: boolean;
-  data: TUser;
+  data: TUser | null;
   loginUserError: string | null;
   loginUserRequest: boolean;
   registerUserError: string | null;
@@ -17,7 +23,7 @@ interface TUserState {
 const initialState: TUserState = {
   isAuthChecked: false, // флаг для статуса проверки токена пользователя
   isAuthenticated: false,
-  data: { email: '', name: '' },
+  data: null,
   loginUserError: null,
   loginUserRequest: false,
   registerUserError: null,
@@ -50,6 +56,9 @@ export const userSlice = createSlice({
     },
     setUserStorage: (state, action) => {
       state.data = action.payload;
+    },
+    userLogout: (state) => {
+      state.data = null;
     }
   },
   extraReducers: (builder) => {
@@ -118,7 +127,7 @@ export const userSlice = createSlice({
   }
 });
 
-const { authChecked } = userSlice.actions;
+const { authChecked, userLogout } = userSlice.actions;
 
 export const checkUserAuth = createAsyncThunk(
   'user/checkUser',
@@ -131,6 +140,22 @@ export const checkUserAuth = createAsyncThunk(
     } finally {
       dispatch(authChecked());
     }
+  }
+);
+
+export const logoutUser = createAsyncThunk(
+  'user/logoutUser',
+  async (_, { dispatch }) => {
+    logoutApi()
+      .then(() => {
+        console.log('logout from server successful');
+        localStorage.clear(); // очищаем refreshToken
+        deleteCookie('accessToken'); // очищаем accessToken
+        dispatch(userLogout()); // удаляем пользователя из хранилища
+      })
+      .catch(() => {
+        console.log('Ошибка выполнения выхода');
+      });
   }
 );
 

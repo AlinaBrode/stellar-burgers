@@ -8,22 +8,22 @@ export const Profile: FC = () => {
   const dispatch = useDispatch();
 
   const [formValue, setFormValue] = useState({
-    name: data.name,
-    email: data.email,
+    name: data?.name || '',
+    email: data?.email || '',
     password: ''
   });
 
   useEffect(() => {
     setFormValue((prevState) => ({
       ...prevState,
-      name: data.name,
-      email: data.email
+      name: data?.name || '',
+      email: data?.email || ''
     }));
   }, [data]);
 
   const isFormChanged =
-    formValue.name !== data.name ||
-    formValue.email !== data.email ||
+    formValue.name !== data?.name ||
+    formValue.email !== data?.email ||
     !!formValue.password;
 
   const handleSubmit = (e: SyntheticEvent) => {
@@ -34,8 +34,8 @@ export const Profile: FC = () => {
   const handleCancel = (e: SyntheticEvent) => {
     e.preventDefault();
     setFormValue({
-      name: data.name,
-      email: data.email,
+      name: data?.name || '',
+      email: data?.email || '',
       password: ''
     });
   };

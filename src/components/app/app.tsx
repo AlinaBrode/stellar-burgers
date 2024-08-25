@@ -22,12 +22,15 @@ import {
 import { ProtectedRoute } from '../protected-route/protected-route';
 import { useDispatch } from '../../services/store';
 import { checkUserAuth } from '../../services/slices/user-slice';
+import { useEffect } from 'react';
 
 const App = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  dispatch(checkUserAuth());
+  useEffect(() => {
+    dispatch(checkUserAuth());
+  }, []);
 
   return (
     <>
@@ -48,9 +51,9 @@ const App = () => {
           <Route
             path='/register'
             element={
-              <ProtectedRoute>
-                <Register />
-              </ProtectedRoute>
+              // <ProtectedRoute>
+              <Register />
+              // </ProtectedRoute>
             }
           />
           <Route
