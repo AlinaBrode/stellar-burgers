@@ -6,19 +6,14 @@ import {
   NotFound404,
   Profile,
   ProfileOrders,
-  Register
+  Register,
+  ResetPassword
 } from '@pages';
 import '../../index.css';
 import styles from './app.module.css';
 
 import { AppHeader, IngredientDetails, Modal, OrderInfo } from '@components';
-import {
-  Route,
-  Routes,
-  useLocation,
-  useNavigate,
-  useParams
-} from 'react-router-dom';
+import { Route, Routes, useNavigate } from 'react-router-dom';
 import { ProtectedRoute } from '../protected-route/protected-route';
 import { useDispatch } from '../../services/store';
 import { checkUserAuth } from '../../services/slices/user-slice';
@@ -59,8 +54,16 @@ const App = () => {
           <Route
             path='/forgot-password'
             element={
-              <ProtectedRoute>
+              <ProtectedRoute regRoute>
                 <ForgotPassword />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path='/reset-password'
+            element={
+              <ProtectedRoute regRoute>
+                <ResetPassword />
               </ProtectedRoute>
             }
           />
