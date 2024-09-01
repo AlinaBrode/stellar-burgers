@@ -1,16 +1,31 @@
-import { FC, useMemo } from 'react';
+import { FC, useEffect, useMemo } from 'react';
 import { Preloader } from '../ui/preloader';
 import { OrderInfoUI } from '../ui/order-info';
 import { TIngredient } from '@utils-types';
-import { RootState, useSelector } from '../../services/store';
+import { RootState, useDispatch, useSelector } from '../../services/store';
+import { useParams } from 'react-router-dom';
+import { fetchOrderInfo } from '../../services/slices/order-info-slice';
 
 export const OrderInfo: FC = () => {
-  /** TODO: взяли; почему не отображается? взять переменные orderData и ingredients из стора */
-  const { newOrderResponse } = useSelector((state: RootState) => state.order);
-  const ingredientsStore = useSelector((state: RootState) => state.ingredients);
+  const { orderInfo, isOrderInfoLoading } = useSelector(
+    (state: RootState) => state.orderInfo
+  );
+  const { ingredients } = useSelector((state: RootState) => state.ingredients);
+  const params = useParams();
+  const dispatch = useDispatch();
 
-  const orderData = newOrderResponse
-    ? newOrderResponse.order
+  useEffect(() => console.log('ingredients =', ingredients), [ingredients]);
+  useEffect(() => console.log('params =', params), [params]);
+  useEffect(() => console.log('orderInfo =', orderInfo), [orderInfo]);
+
+  useEffect(() => {
+    if (params.number) {
+      dispatch(fetchOrderInfo(Number(params.number)));
+    }
+  }, [params]);
+
+  const orderData = orderInfo?.length
+    ? orderInfo[0]
     : {
         createdAt: '',
         ingredients: [],
@@ -21,12 +36,10 @@ export const OrderInfo: FC = () => {
         number: 0
       };
 
-  const ingredients: TIngredient[] = ingredientsStore.ingredients
-    ? ingredientsStore.ingredients
-    : [];
+  useEffect(() => console.log('order data =', orderData), [orderData]);
 
   /* Готовим данные для отображения */
-  const orderInfo = useMemo(() => {
+  const orderInfoStat = useMemo(() => {
     if (!orderData || !ingredients.length) return null;
 
     const date = new Date(orderData.createdAt);
@@ -67,9 +80,14 @@ export const OrderInfo: FC = () => {
     };
   }, [orderData, ingredients]);
 
-  if (!orderInfo) {
+  useEffect(
+    () => console.log('orderInfoStat =', orderInfoStat, isOrderInfoLoading),
+    [orderInfoStat, isOrderInfoLoading]
+  );
+
+  if (isOrderInfoLoading || orderInfoStat === null) {
     return <Preloader />;
   }
 
-  return <OrderInfoUI orderInfo={orderInfo} />;
+  return <OrderInfoUI orderInfo={orderInfoStat} />;
 };
