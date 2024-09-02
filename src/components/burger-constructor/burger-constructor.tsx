@@ -14,21 +14,10 @@ export const BurgerConstructor: FC = () => {
   const { isAuthenticated } = useSelector((state: RootState) => state.user);
   const navigate = useNavigate();
 
-  // const orderRequest = false;
-  const orderModalData = newOrderResponse ? newOrderResponse.order : null;
-
-  useEffect(
-    () => console.log('order modal data', orderModalData),
-    [orderModalData]
-  );
-
   const onOrderClick = () => {
     if (!constructorItems.bun || orderRequest) return;
 
-    if (!isAuthenticated) {
-      navigate('/login');
-      return;
-    }
+    console.log('on order click');
 
     dispatch(
       fetchOrder([
@@ -48,12 +37,23 @@ export const BurgerConstructor: FC = () => {
     [constructorItems]
   );
 
+  useEffect(
+    () =>
+      console.log(
+        'modelData =',
+        newOrderResponse?.order,
+        'newOrderResponse =',
+        newOrderResponse
+      ),
+    [newOrderResponse]
+  );
+
   return (
     <BurgerConstructorUI
       price={price}
       orderRequest={orderRequest}
       constructorItems={constructorItems}
-      orderModalData={orderModalData}
+      orderModalData={newOrderResponse?.order}
       onOrderClick={onOrderClick}
       closeOrderModal={() => navigate(-1)}
     />

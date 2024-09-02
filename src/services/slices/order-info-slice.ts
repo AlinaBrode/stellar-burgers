@@ -39,7 +39,7 @@ const orderInfoSlice = createSlice({
       })
       .addCase(fetchOrderInfo.fulfilled, (state, action) => {
         state.orderInfo = action.payload.orders;
-        state.isOrderInfoLoading = false;
+        state.isOrderInfoLoading = true;
         state.error = '';
       })
       .addCase(fetchOrderInfo.rejected, (state, action) => {
