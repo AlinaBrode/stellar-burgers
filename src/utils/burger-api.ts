@@ -164,7 +164,6 @@ export type TLoginData = {
 
 export const loginUserApi = (data: TLoginData) => {
   const authPath = `${URL}/auth/login`;
-  console.log('authPath =', authPath);
   return fetch(authPath, {
     method: 'POST',
     headers: {
@@ -174,7 +173,6 @@ export const loginUserApi = (data: TLoginData) => {
   })
     .then((res) => checkResponse<TAuthResponse>(res))
     .then((data) => {
-      console.log('login data', data);
       if (data?.success) return data;
       return Promise.reject(data);
     });
@@ -230,7 +228,6 @@ export const updateUserApi = (user: Partial<TRegisterData>) =>
 export const logoutApi = () => {
   const logoutPath = `${URL}/auth/logout`;
   const refreshTokenVal = localStorage.getItem('refreshToken');
-  console.log('logoutPath =', logoutPath, 'refreshTokenVal =', refreshTokenVal);
 
   return fetch(logoutPath, {
     method: 'POST',

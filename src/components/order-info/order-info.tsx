@@ -14,10 +14,6 @@ export const OrderInfo: FC = () => {
   const params = useParams();
   const dispatch = useDispatch();
 
-  useEffect(() => console.log('ingredients =', ingredients), [ingredients]);
-  useEffect(() => console.log('params =', params), [params]);
-  useEffect(() => console.log('orderInfo =', orderInfo), [orderInfo]);
-
   useEffect(() => {
     if (params.number) {
       dispatch(fetchOrderInfo(Number(params.number)));
@@ -35,8 +31,6 @@ export const OrderInfo: FC = () => {
         updatedAt: 'string',
         number: 0
       };
-
-  useEffect(() => console.log('order data =', orderData), [orderData]);
 
   /* Готовим данные для отображения */
   const orderInfoStat = useMemo(() => {
@@ -79,11 +73,6 @@ export const OrderInfo: FC = () => {
       total
     };
   }, [orderData, ingredients]);
-
-  useEffect(
-    () => console.log('orderInfoStat =', orderInfoStat, isOrderInfoLoading),
-    [orderInfoStat, isOrderInfoLoading]
-  );
 
   if (isOrderInfoLoading || orderInfoStat === null) {
     return <Preloader />;

@@ -52,7 +52,6 @@ export const userSlice = createSlice({
   reducers: {
     authChecked: (state) => {
       state.isAuthChecked = true;
-      console.log('authChecked. true');
     },
     setUserStorage: (state, action) => {
       state.data = action.payload;
@@ -66,7 +65,6 @@ export const userSlice = createSlice({
       .addCase(loginUser.pending, (state) => {
         state.loginUserRequest = true;
         state.loginUserError = null;
-        console.log('user penging');
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.loginUserRequest = false;
@@ -77,21 +75,18 @@ export const userSlice = createSlice({
               ? action.error.message
               : 'An unknown error occurred';
         state.isAuthChecked = true;
-        console.log('user rejected', action.payload);
       })
       .addCase(loginUser.fulfilled, (state, action) => {
         state.data = action.payload.user;
         state.loginUserRequest = false;
         state.isAuthenticated = true;
         state.isAuthChecked = true;
-        console.log('user fulfilled', action.payload);
         localStorage.setItem('refreshToken', action.payload.refreshToken);
         setCookie('accessToken', action.payload.accessToken);
       })
       .addCase(registerUser.pending, (state) => {
         state.registerUserRequest = true;
         state.registerUserError = null;
-        console.log('register user penging');
       })
       .addCase(registerUser.rejected, (state, action) => {
         state.registerUserRequest = false;
@@ -102,7 +97,6 @@ export const userSlice = createSlice({
               ? action.error.message
               : 'An unknown error occurred';
         state.isAuthChecked = true;
-        console.log('register user rejected', action.payload);
       })
       .addCase(registerUser.fulfilled, (state, action) => {
         state.data = action.payload.user;
@@ -111,20 +105,16 @@ export const userSlice = createSlice({
         state.registerUserRequest = false;
         state.isAuthenticated = true;
         state.isAuthChecked = true;
-        console.log('register user fulfilled', action.payload);
       })
       .addCase(getUser.pending, (state) => {
         state.isAuthChecked = false;
-        console.log('getUser pending');
       })
       .addCase(getUser.rejected, (state) => {
         state.isAuthChecked = true;
-        console.log('getUser rejected');
       })
       .addCase(getUser.fulfilled, (state, action) => {
         state.data = action.payload.user;
         state.isAuthChecked = true;
-        console.log('getUser fulfilled');
       });
   }
 });
@@ -134,7 +124,6 @@ const { authChecked, userLogout } = userSlice.actions;
 export const checkUserAuth = createAsyncThunk(
   'user/checkUser',
   async (_, { dispatch }) => {
-    console.log('check user auth 1');
     try {
       if (getCookie('accessToken')) {
         await dispatch(getUser());

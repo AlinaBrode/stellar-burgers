@@ -3,7 +3,7 @@ import { TIngredient } from '@utils-types';
 import { BurgerConstructorUI } from '@ui';
 import { RootState, useDispatch, useSelector } from '../../services/store';
 import { useNavigate } from 'react-router-dom';
-import { fetchOrder } from '../../services/slices/order-slice';
+import { dropModalData, fetchOrder } from '../../services/slices/order-slice';
 
 export const BurgerConstructor: FC = () => {
   const dispatch = useDispatch();
@@ -16,8 +16,6 @@ export const BurgerConstructor: FC = () => {
 
   const onOrderClick = () => {
     if (!constructorItems.bun || orderRequest) return;
-
-    console.log('on order click');
 
     dispatch(
       fetchOrder([
@@ -37,17 +35,6 @@ export const BurgerConstructor: FC = () => {
     [constructorItems]
   );
 
-  useEffect(
-    () =>
-      console.log(
-        'modelData =',
-        newOrderResponse?.order,
-        'newOrderResponse =',
-        newOrderResponse
-      ),
-    [newOrderResponse]
-  );
-
   return (
     <BurgerConstructorUI
       price={price}
@@ -55,7 +42,9 @@ export const BurgerConstructor: FC = () => {
       constructorItems={constructorItems}
       orderModalData={newOrderResponse?.order}
       onOrderClick={onOrderClick}
-      closeOrderModal={() => navigate(-1)}
+      closeOrderModal={() => {
+        dispatch(dropModalData());
+      }}
     />
   );
 };

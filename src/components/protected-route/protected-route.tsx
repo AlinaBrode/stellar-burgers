@@ -19,16 +19,11 @@ export const ProtectedRoute = ({
   const location = useLocation();
   const dispatch = useDispatch();
 
-  useEffect(() => console.log('protected route data =', data), [data]);
-  console.log('regRoute =', regRoute);
-
   if (!isAuthChecked) {
-    console.log('preloader');
     return <Preloader />;
   }
 
   if (regRoute && data) {
-    console.log('navigate to profile');
     return <Navigate replace to='/profile' />;
   }
 
@@ -39,7 +34,6 @@ export const ProtectedRoute = ({
   }
 
   if (data && onlyUnAuth) {
-    console.log('navigate from login');
     const from = location.state?.from || { pathname: '/' };
     return <Navigate replace to={from} />;
   }

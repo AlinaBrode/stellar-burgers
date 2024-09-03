@@ -17,9 +17,7 @@ export const fetchOrder = createAsyncThunk(
   'order/fetchOrder',
   async (idsList: string[], { rejectWithValue }) => {
     try {
-      console.log('make order with ingredients', idsList);
       const data = await orderBurgerApi(idsList);
-      console.log('order data', data);
       return data;
     } catch (err) {
       return rejectWithValue('Failed to fetch order');
@@ -30,17 +28,19 @@ export const fetchOrder = createAsyncThunk(
 const orderSlice = createSlice({
   name: 'order',
   initialState,
-  reducers: {},
+  reducers: {
+    dropModalData: (state) => {
+      state.newOrderResponse = null;
+    }
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchOrder.pending, (state) => {
-        console.log('fetchOrder.pending');
         state.orderRequest = true;
         state.newOrderResponse = null;
         state.error = null;
       })
       .addCase(fetchOrder.fulfilled, (state, action) => {
-        console.log('fetchOrder.fulfilled');
         state.orderRequest = false;
         state.newOrderResponse = action.payload;
         state.error = null;
@@ -52,5 +52,7 @@ const orderSlice = createSlice({
       });
   }
 });
+
+export const { dropModalData } = orderSlice.actions;
 
 export default orderSlice.reducer;
