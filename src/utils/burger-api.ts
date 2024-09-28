@@ -61,7 +61,7 @@ type TIngredientsResponse = TServerResponse<{
   data: TIngredient[];
 }>;
 
-type TFeedsResponse = TServerResponse<{
+export type TFeedsResponse = TServerResponse<{
   orders: TOrder[];
   total: number;
   totalToday: number;
@@ -99,7 +99,7 @@ export const getOrdersApi = () =>
     return Promise.reject(data);
   });
 
-type TNewOrderResponse = TServerResponse<{
+export type TNewOrderResponse = TServerResponse<{
   order: TOrder;
   name: string;
 }>;
@@ -162,8 +162,9 @@ export type TLoginData = {
   password: string;
 };
 
-export const loginUserApi = (data: TLoginData) =>
-  fetch(`${URL}/auth/login`, {
+export const loginUserApi = (data: TLoginData) => {
+  const authPath = `${URL}/auth/login`;
+  return fetch(authPath, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json;charset=utf-8'
@@ -175,6 +176,7 @@ export const loginUserApi = (data: TLoginData) =>
       if (data?.success) return data;
       return Promise.reject(data);
     });
+};
 
 export const forgotPasswordApi = (data: { email: string }) =>
   fetch(`${URL}/password-reset`, {
@@ -223,13 +225,17 @@ export const updateUserApi = (user: Partial<TRegisterData>) =>
     body: JSON.stringify(user)
   });
 
-export const logoutApi = () =>
-  fetch(`${URL}/auth/logout`, {
+export const logoutApi = () => {
+  const logoutPath = `${URL}/auth/logout`;
+  const refreshTokenVal = localStorage.getItem('refreshToken');
+
+  return fetch(logoutPath, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json;charset=utf-8'
     },
     body: JSON.stringify({
-      token: localStorage.getItem('refreshToken')
+      token: refreshTokenVal
     })
   }).then((res) => checkResponse<TServerResponse<{}>>(res));
+};
