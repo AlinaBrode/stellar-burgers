@@ -118,7 +118,7 @@ export const userSlice = createSlice({
   }
 });
 
-const { authChecked, userLogout } = userSlice.actions;
+export const { authChecked, userLogout } = userSlice.actions;
 
 export const checkUserAuth = createAsyncThunk(
   'user/checkUser',
