@@ -6,7 +6,7 @@ import { TFeedsResponse } from '../../utils/burger-api';
 describe('feedSlice reducer', () => {
   const initialState = {
     feedsData: null,
-    error: null,
+    error: null
   };
 
   it('should return the initial state', () => {
@@ -17,7 +17,7 @@ describe('feedSlice reducer', () => {
     const action = { type: fetchFeeds.pending.type };
     const expectedState = {
       feedsData: null,
-      error: null,
+      error: null
     };
     expect(feedsReducer(initialState, action)).toEqual(expectedState);
   });
@@ -33,17 +33,17 @@ describe('feedSlice reducer', () => {
           name: 'Feed Order 1',
           createdAt: '2023-09-01T12:34:56.789Z',
           updatedAt: '2023-09-01T12:34:56.789Z',
-          number: 1234,
-        },
+          number: 1234
+        }
       ],
       total: 100,
-      totalToday: 10,
+      totalToday: 10
     };
 
     const action = { type: fetchFeeds.fulfilled.type, payload: feedsData };
     const expectedState = {
       feedsData,
-      error: null,
+      error: null
     };
     expect(feedsReducer(initialState, action)).toEqual(expectedState);
   });
@@ -53,7 +53,7 @@ describe('feedSlice reducer', () => {
     const action = { type: fetchFeeds.rejected.type, payload: error };
     const expectedState = {
       feedsData: null,
-      error,
+      error
     };
     expect(feedsReducer(initialState, action)).toEqual(expectedState);
   });

@@ -7,7 +7,7 @@ describe('ingredientSlice reducer', () => {
   const initialState = {
     ingredients: [],
     isIngredientsLoading: false,
-    error: null,
+    error: null
   };
 
   it('should return the initial state', () => {
@@ -19,7 +19,7 @@ describe('ingredientSlice reducer', () => {
     const expectedState = {
       ingredients: [],
       isIngredientsLoading: true,
-      error: null,
+      error: null
     };
     expect(ingredientsReducer(initialState, action)).toEqual(expectedState);
   });
@@ -37,7 +37,7 @@ describe('ingredientSlice reducer', () => {
         price: 50,
         image: 'image1.png',
         image_large: 'image1_large.png',
-        image_mobile: 'image1_mobile.png',
+        image_mobile: 'image1_mobile.png'
       },
       {
         _id: '124',
@@ -50,15 +50,18 @@ describe('ingredientSlice reducer', () => {
         price: 100,
         image: 'image2.png',
         image_large: 'image2_large.png',
-        image_mobile: 'image2_mobile.png',
-      },
+        image_mobile: 'image2_mobile.png'
+      }
     ];
 
-    const action = { type: fetchIngredients.fulfilled.type, payload: ingredients };
+    const action = {
+      type: fetchIngredients.fulfilled.type,
+      payload: ingredients
+    };
     const expectedState = {
       ingredients: ingredients,
       isIngredientsLoading: false,
-      error: null,
+      error: null
     };
     expect(ingredientsReducer(initialState, action)).toEqual(expectedState);
   });
@@ -69,7 +72,7 @@ describe('ingredientSlice reducer', () => {
     const expectedState = {
       ingredients: [],
       isIngredientsLoading: false,
-      error: error,
+      error: error
     };
     expect(ingredientsReducer(initialState, action)).toEqual(expectedState);
   });

@@ -1,13 +1,18 @@
 // burger-slice.test.ts
-import burgerReducer, { addIngredient, deleteIngredient, moveIngredientDown, moveIngredientUp } from './burger-slice';
+import burgerReducer, {
+  addIngredient,
+  deleteIngredient,
+  moveIngredientDown,
+  moveIngredientUp
+} from './burger-slice';
 import { TIngredient } from '../../utils/types';
 
 describe('burgerReducer', () => {
   const initialState = {
     constructorItems: {
       bun: null,
-      ingredients: [],
-    },
+      ingredients: []
+    }
   };
 
   const ingredients: TIngredient[] = [
@@ -22,7 +27,7 @@ describe('burgerReducer', () => {
       price: 10,
       image: 'lettuce.png',
       image_large: 'lettuce_large.png',
-      image_mobile: 'lettuce_mobile.png',
+      image_mobile: 'lettuce_mobile.png'
     },
     {
       _id: '124',
@@ -35,7 +40,7 @@ describe('burgerReducer', () => {
       price: 12,
       image: 'tomato.png',
       image_large: 'tomato_large.png',
-      image_mobile: 'tomato_mobile.png',
+      image_mobile: 'tomato_mobile.png'
     },
     {
       _id: '125',
@@ -48,17 +53,16 @@ describe('burgerReducer', () => {
       price: 15,
       image: 'cheese.png',
       image_large: 'cheese_large.png',
-      image_mobile: 'cheese_mobile.png',
+      image_mobile: 'cheese_mobile.png'
     }
   ];
 
   const nonEmptyState = {
     constructorItems: {
       bun: null,
-      ingredients: ingredients,
-    },
+      ingredients: ingredients
+    }
   };
-
 
   it('should handle adding a filling ingredient', () => {
     const ingredient: TIngredient = {
@@ -72,15 +76,15 @@ describe('burgerReducer', () => {
       price: 10,
       image: 'image.png',
       image_large: 'image_large.png',
-      image_mobile: 'image_mobile.png',
+      image_mobile: 'image_mobile.png'
     };
 
     const action = addIngredient(ingredient);
     const expectedState = {
       constructorItems: {
         bun: null,
-        ingredients: [ingredient],
-      },
+        ingredients: [ingredient]
+      }
     };
 
     expect(burgerReducer(initialState, action)).toEqual(expectedState);
@@ -103,7 +107,7 @@ describe('burgerReducer', () => {
             price: 10,
             image: 'lettuce.png',
             image_large: 'lettuce_large.png',
-            image_mobile: 'lettuce_mobile.png',
+            image_mobile: 'lettuce_mobile.png'
           },
           {
             _id: '125',
@@ -116,16 +120,14 @@ describe('burgerReducer', () => {
             price: 15,
             image: 'cheese.png',
             image_large: 'cheese_large.png',
-            image_mobile: 'cheese_mobile.png',
+            image_mobile: 'cheese_mobile.png'
           }
-        ],
-      },
+        ]
+      }
     };
 
     expect(burgerReducer(nonEmptyState, action)).toEqual(expectedState);
   });
-
-
 
   it('should handle adding a bun', () => {
     const bun: TIngredient = {
@@ -139,15 +141,15 @@ describe('burgerReducer', () => {
       price: 50,
       image: 'bun_image.png',
       image_large: 'bun_image_large.png',
-      image_mobile: 'bun_image_mobile.png',
+      image_mobile: 'bun_image_mobile.png'
     };
 
     const action = addIngredient(bun);
     const expectedState = {
       constructorItems: {
         bun: bun,
-        ingredients: [],
-      },
+        ingredients: []
+      }
     };
 
     expect(burgerReducer(initialState, action)).toEqual(expectedState);
@@ -170,7 +172,7 @@ describe('burgerReducer', () => {
             price: 12,
             image: 'tomato.png',
             image_large: 'tomato_large.png',
-            image_mobile: 'tomato_mobile.png',
+            image_mobile: 'tomato_mobile.png'
           },
           {
             _id: '123',
@@ -183,7 +185,7 @@ describe('burgerReducer', () => {
             price: 10,
             image: 'lettuce.png',
             image_large: 'lettuce_large.png',
-            image_mobile: 'lettuce_mobile.png',
+            image_mobile: 'lettuce_mobile.png'
           },
           {
             _id: '125',
@@ -196,10 +198,10 @@ describe('burgerReducer', () => {
             price: 15,
             image: 'cheese.png',
             image_large: 'cheese_large.png',
-            image_mobile: 'cheese_mobile.png',
+            image_mobile: 'cheese_mobile.png'
           }
-        ],
-      },
+        ]
+      }
     };
 
     expect(burgerReducer(nonEmptyState, action)).toEqual(expectedState);
@@ -222,7 +224,7 @@ describe('burgerReducer', () => {
             price: 10,
             image: 'lettuce.png',
             image_large: 'lettuce_large.png',
-            image_mobile: 'lettuce_mobile.png',
+            image_mobile: 'lettuce_mobile.png'
           },
           {
             _id: '125',
@@ -235,7 +237,7 @@ describe('burgerReducer', () => {
             price: 15,
             image: 'cheese.png',
             image_large: 'cheese_large.png',
-            image_mobile: 'cheese_mobile.png',
+            image_mobile: 'cheese_mobile.png'
           },
           {
             _id: '124',
@@ -248,10 +250,10 @@ describe('burgerReducer', () => {
             price: 12,
             image: 'tomato.png',
             image_large: 'tomato_large.png',
-            image_mobile: 'tomato_mobile.png',
+            image_mobile: 'tomato_mobile.png'
           }
-        ],
-      },
+        ]
+      }
     };
 
     expect(burgerReducer(nonEmptyState, action)).toEqual(expectedState);

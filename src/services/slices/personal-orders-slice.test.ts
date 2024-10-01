@@ -3,12 +3,11 @@
 import orderInfoReducer, { fetchPersonalOrders } from './personal-orders-slice';
 import { TOrder } from '../../utils/types';
 
-
 describe('orderInfoSlice reducer', () => {
   const initialState = {
     orders: [],
     isLoading: false,
-    error: '',
+    error: ''
   };
 
   it('should return the initial state', () => {
@@ -20,7 +19,7 @@ describe('orderInfoSlice reducer', () => {
     const expectedState = {
       orders: [],
       isLoading: true,
-      error: '',
+      error: ''
     };
     expect(orderInfoReducer(initialState, action)).toEqual(expectedState);
   });
@@ -34,7 +33,7 @@ describe('orderInfoSlice reducer', () => {
         createdAt: '2023-09-01T12:34:56.789Z',
         updatedAt: '2023-09-01T12:34:56.789Z',
         number: 12345,
-        ingredients: ['ingredient1', 'ingredient2'],
+        ingredients: ['ingredient1', 'ingredient2']
       },
       {
         _id: 'order2',
@@ -43,15 +42,18 @@ describe('orderInfoSlice reducer', () => {
         createdAt: '2023-09-02T10:00:00.000Z',
         updatedAt: '2023-09-02T10:30:00.000Z',
         number: 12346,
-        ingredients: ['ingredient3', 'ingredient4'],
-      },
+        ingredients: ['ingredient3', 'ingredient4']
+      }
     ];
 
-    const action = { type: fetchPersonalOrders.fulfilled.type, payload: orders };
+    const action = {
+      type: fetchPersonalOrders.fulfilled.type,
+      payload: orders
+    };
     const expectedState = {
       orders,
       isLoading: true, // Note that this should ideally be `false` after fulfilling the request, but follows your slice logic
-      error: '',
+      error: ''
     };
     expect(orderInfoReducer(initialState, action)).toEqual(expectedState);
   });
@@ -62,7 +64,7 @@ describe('orderInfoSlice reducer', () => {
     const expectedState = {
       orders: [],
       isLoading: false,
-      error,
+      error
     };
     expect(orderInfoReducer(initialState, action)).toEqual(expectedState);
   });

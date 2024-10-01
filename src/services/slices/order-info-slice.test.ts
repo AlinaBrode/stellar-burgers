@@ -7,7 +7,7 @@ describe('orderInfoSlice reducer', () => {
   const initialState = {
     orderInfo: [],
     isOrderInfoLoading: false,
-    error: '',
+    error: ''
   };
 
   it('should return the initial state', () => {
@@ -19,7 +19,7 @@ describe('orderInfoSlice reducer', () => {
     const expectedState = {
       orderInfo: [],
       isOrderInfoLoading: true,
-      error: '',
+      error: ''
     };
     expect(orderInfoReducer(initialState, action)).toEqual(expectedState);
   });
@@ -33,15 +33,18 @@ describe('orderInfoSlice reducer', () => {
         createdAt: '2023-09-01T12:34:56.789Z',
         updatedAt: '2023-09-01T12:34:56.789Z',
         number: 12345,
-        ingredients: ['ingredient1', 'ingredient2'],
-      },
+        ingredients: ['ingredient1', 'ingredient2']
+      }
     ];
 
-    const action = { type: fetchOrderInfo.fulfilled.type, payload: { orders: orderInfo } };
+    const action = {
+      type: fetchOrderInfo.fulfilled.type,
+      payload: { orders: orderInfo }
+    };
     const expectedState = {
       orderInfo,
       isOrderInfoLoading: true,
-      error: '',
+      error: ''
     };
     expect(orderInfoReducer(initialState, action)).toEqual(expectedState);
   });
@@ -52,7 +55,7 @@ describe('orderInfoSlice reducer', () => {
     const expectedState = {
       orderInfo: [],
       isOrderInfoLoading: false,
-      error,
+      error
     };
     expect(orderInfoReducer(initialState, action)).toEqual(expectedState);
   });

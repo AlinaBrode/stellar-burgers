@@ -8,7 +8,7 @@ import userReducer, {
   userLogout,
   TUserState,
   checkUserAuth,
-  logoutUserAction,
+  logoutUserAction
 } from './user-slice';
 import { TUser } from '../../utils/types';
 import { setCookie, deleteCookie } from '../../utils/cookie';
@@ -20,13 +20,13 @@ jest.mock('@api', () => ({
   loginUserApi: jest.fn(),
   registerUserApi: jest.fn(),
   getUserApi: jest.fn(),
-  logoutApi: jest.fn(),
+  logoutApi: jest.fn()
 }));
 
 jest.mock('../../utils/cookie', () => ({
   setCookie: jest.fn(),
   deleteCookie: jest.fn(),
-  getCookie: jest.fn(() => 'mockedAccessToken'),
+  getCookie: jest.fn(() => 'mockedAccessToken')
 }));
 
 // Mock localStorage
@@ -35,9 +35,9 @@ beforeAll(() => {
     value: {
       setItem: jest.fn(),
       getItem: jest.fn(),
-      clear: jest.fn(),
+      clear: jest.fn()
     },
-    writable: true,
+    writable: true
   });
 });
 
@@ -45,13 +45,13 @@ jest.mock('@api', () => ({
   loginUserApi: jest.fn(),
   registerUserApi: jest.fn(),
   getUserApi: jest.fn(),
-  logoutApi: jest.fn(),
+  logoutApi: jest.fn()
 }));
 
 jest.mock('../../utils/cookie', () => ({
   setCookie: jest.fn(),
   deleteCookie: jest.fn(),
-  getCookie: jest.fn(() => 'mockedAccessToken'),
+  getCookie: jest.fn(() => 'mockedAccessToken')
 }));
 
 describe('userSlice reducer', () => {
@@ -62,7 +62,7 @@ describe('userSlice reducer', () => {
     loginUserError: null,
     loginUserRequest: false,
     registerUserError: null,
-    registerUserRequest: false,
+    registerUserRequest: false
   };
 
   it('should return the initial state', () => {
@@ -73,7 +73,7 @@ describe('userSlice reducer', () => {
     const action = { type: loginUser.pending.type };
     const expectedState = {
       ...initialState,
-      loginUserRequest: true,
+      loginUserRequest: true
     };
     expect(userReducer(initialState, action)).toEqual(expectedState);
   });
@@ -81,22 +81,29 @@ describe('userSlice reducer', () => {
   it('should handle loginUser.fulfilled', () => {
     const user: TUser = {
       email: 'test@example.com',
-      name: 'Test User',
+      name: 'Test User'
     };
 
     const action = {
       type: loginUser.fulfilled.type,
-      payload: { user, accessToken: 'accessToken', refreshToken: 'refreshToken' },
+      payload: {
+        user,
+        accessToken: 'accessToken',
+        refreshToken: 'refreshToken'
+      }
     };
     const expectedState = {
       ...initialState,
       data: user,
       isAuthenticated: true,
-      isAuthChecked: true,
+      isAuthChecked: true
     };
     expect(userReducer(initialState, action)).toEqual(expectedState);
     expect(setCookie).toHaveBeenCalledWith('accessToken', 'accessToken');
-    expect(localStorage.setItem).toHaveBeenCalledWith('refreshToken', 'refreshToken');
+    expect(localStorage.setItem).toHaveBeenCalledWith(
+      'refreshToken',
+      'refreshToken'
+    );
   });
 
   it('should handle loginUser.rejected', () => {
@@ -106,7 +113,7 @@ describe('userSlice reducer', () => {
       ...initialState,
       loginUserRequest: false,
       loginUserError: error,
-      isAuthChecked: true,
+      isAuthChecked: true
     };
     expect(userReducer(initialState, action)).toEqual(expectedState);
   });
@@ -115,7 +122,7 @@ describe('userSlice reducer', () => {
     const action = { type: registerUser.pending.type };
     const expectedState = {
       ...initialState,
-      registerUserRequest: true,
+      registerUserRequest: true
     };
     expect(userReducer(initialState, action)).toEqual(expectedState);
   });
@@ -123,32 +130,42 @@ describe('userSlice reducer', () => {
   it('should handle registerUser.fulfilled', () => {
     const user: TUser = {
       email: 'test@example.com',
-      name: 'Test User',
+      name: 'Test User'
     };
 
     const action = {
       type: registerUser.fulfilled.type,
-      payload: { user, accessToken: 'accessToken', refreshToken: 'refreshToken' },
+      payload: {
+        user,
+        accessToken: 'accessToken',
+        refreshToken: 'refreshToken'
+      }
     };
     const expectedState = {
       ...initialState,
       data: user,
       isAuthenticated: true,
-      isAuthChecked: true,
+      isAuthChecked: true
     };
     expect(userReducer(initialState, action)).toEqual(expectedState);
     expect(setCookie).toHaveBeenCalledWith('accessToken', 'accessToken');
-    expect(localStorage.setItem).toHaveBeenCalledWith('refreshToken', 'refreshToken');
+    expect(localStorage.setItem).toHaveBeenCalledWith(
+      'refreshToken',
+      'refreshToken'
+    );
   });
 
   it('should handle registerUser.rejected', () => {
     const error = 'Registration failed';
-    const action = { type: registerUser.rejected.type, error: { message: error } };
+    const action = {
+      type: registerUser.rejected.type,
+      error: { message: error }
+    };
     const expectedState = {
       ...initialState,
       registerUserRequest: false,
       registerUserError: error,
-      isAuthChecked: true,
+      isAuthChecked: true
     };
     expect(userReducer(initialState, action)).toEqual(expectedState);
   });
@@ -156,14 +173,14 @@ describe('userSlice reducer', () => {
   it('should handle getUser.fulfilled', () => {
     const user: TUser = {
       email: 'test@example.com',
-      name: 'Test User',
+      name: 'Test User'
     };
 
     const action = { type: getUser.fulfilled.type, payload: { user } };
     const expectedState = {
       ...initialState,
       data: user,
-      isAuthChecked: true,
+      isAuthChecked: true
     };
     expect(userReducer(initialState, action)).toEqual(expectedState);
   });
@@ -172,7 +189,7 @@ describe('userSlice reducer', () => {
     const action = { type: authChecked.type };
     const expectedState = {
       ...initialState,
-      isAuthChecked: true,
+      isAuthChecked: true
     };
     expect(userReducer(initialState, action)).toEqual(expectedState);
   });

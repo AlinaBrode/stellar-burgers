@@ -10,10 +10,12 @@ describe('Ingredients API', () => {
   });
 
   it('should fetch mock ingredients data', async () => {
-    fetchMock.mockResponseOnce(JSON.stringify({ success: true, data: mockIngredients }));
+    fetchMock.mockResponseOnce(
+      JSON.stringify({ success: true, data: mockIngredients })
+    );
 
     const response = await getIngredientsApi();
-    
+
     // Check if the response data matches the mockIngredients
     expect(response).toEqual(mockIngredients);
   });

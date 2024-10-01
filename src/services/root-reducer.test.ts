@@ -11,27 +11,27 @@ describe('rootReducer', () => {
       ingredients: {
         ingredients: [],
         isIngredientsLoading: false,
-        error: null,
+        error: null
       },
       burger: {
         constructorItems: {
           bun: null,
-          ingredients: [],
-        },
+          ingredients: []
+        }
       },
       feeds: {
         feedsData: null,
-        error: null,
+        error: null
       },
       orderInfo: {
         orderInfo: [],
         isOrderInfoLoading: false,
-        error: '',
+        error: ''
       },
       order: {
         newOrderResponse: null,
         orderRequest: false,
-        error: null,
+        error: null
       },
       user: {
         isAuthChecked: false,
@@ -40,13 +40,13 @@ describe('rootReducer', () => {
         loginUserError: null,
         loginUserRequest: false,
         registerUserError: null,
-        registerUserRequest: false,
+        registerUserRequest: false
       },
       personalOrder: {
         orders: [],
         isLoading: false,
-        error: '',
-      },
+        error: ''
+      }
     };
 
     expect(initialState).toEqual(expectedInitialState);

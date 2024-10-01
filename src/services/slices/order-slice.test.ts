@@ -7,7 +7,7 @@ describe('orderSlice reducer', () => {
   const initialState = {
     orderRequest: false,
     newOrderResponse: null,
-    error: null,
+    error: null
   };
 
   it('should return the initial state', () => {
@@ -19,7 +19,7 @@ describe('orderSlice reducer', () => {
     const expectedState = {
       orderRequest: true,
       newOrderResponse: null,
-      error: null,
+      error: null
     };
     expect(orderReducer(initialState, action)).toEqual(expectedState);
   });
@@ -35,15 +35,18 @@ describe('orderSlice reducer', () => {
         name: 'Order 123',
         createdAt: '2023-09-01T12:34:56.789Z',
         updatedAt: '2023-09-01T12:34:56.789Z',
-        number: 12345,
-      },
+        number: 12345
+      }
     };
 
-    const action = { type: fetchOrder.fulfilled.type, payload: newOrderResponse };
+    const action = {
+      type: fetchOrder.fulfilled.type,
+      payload: newOrderResponse
+    };
     const expectedState = {
       orderRequest: false,
       newOrderResponse,
-      error: null,
+      error: null
     };
     expect(orderReducer(initialState, action)).toEqual(expectedState);
   });
@@ -54,7 +57,7 @@ describe('orderSlice reducer', () => {
     const expectedState = {
       orderRequest: false,
       newOrderResponse: null,
-      error,
+      error
     };
     expect(orderReducer(initialState, action)).toEqual(expectedState);
   });
@@ -72,16 +75,16 @@ describe('orderSlice reducer', () => {
           name: 'Order 123',
           createdAt: '2023-09-01T12:34:56.789Z',
           updatedAt: '2023-09-01T12:34:56.789Z',
-          number: 12345,
-        },
+          number: 12345
+        }
       },
-      error: null,
+      error: null
     };
 
     const expectedState = {
       orderRequest: false,
       newOrderResponse: null,
-      error: null,
+      error: null
     };
 
     expect(orderReducer(previousState, dropModalData())).toEqual(expectedState);

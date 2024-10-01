@@ -11,34 +11,34 @@ import { PersonalOrders } from '../../services/slices/personal-orders-slice';
 const initialIngredientsState = {
   ingredients: [],
   isIngredientsLoading: false,
-  error: null,
+  error: null
 };
 
 const initialBurgerState = {
   constructorItems: {
     bun: null,
-    ingredients: [],
-  },
+    ingredients: []
+  }
 };
 
 const initialFeedsState = {
   feedsData: null,
-  error: null,
+  error: null
 };
 
 const initialOrderInfoState = {
   orderInfo: [],
   isOrderInfoLoading: false,
-  error: '',
+  error: ''
 };
 
 const initialOrderState = {
   newOrderResponse: null,
   orderRequest: false,
-  error: null,
+  error: null
 };
 
-const initialUserState : TUserState = {
+const initialUserState: TUserState = {
   isAuthChecked: false, // флаг для статуса проверки токена пользователя
   isAuthenticated: false,
   data: null,
@@ -48,8 +48,7 @@ const initialUserState : TUserState = {
   registerUserRequest: false
 };
 
-
-const initialPersonalOrderState : PersonalOrders = {
+const initialPersonalOrderState: PersonalOrders = {
   orders: [],
   isLoading: false,
   error: ''
@@ -58,10 +57,8 @@ const initialPersonalOrderState : PersonalOrders = {
 const mockStore = configureMockStore<RootState>();
 
 describe('Burger Constructor', () => {
-  it('test_00', () => {
-    
-  })
-})
+  it('test_00', () => {});
+});
 
 /*
 describe('Burger Constructor', () => {
