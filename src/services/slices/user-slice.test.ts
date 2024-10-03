@@ -180,7 +180,8 @@ describe('userSlice reducer', () => {
     const expectedState = {
       ...initialState,
       data: user,
-      isAuthChecked: true
+      isAuthChecked: true,
+      isAuthenticated: true
     };
     expect(userReducer(initialState, action)).toEqual(expectedState);
   });
