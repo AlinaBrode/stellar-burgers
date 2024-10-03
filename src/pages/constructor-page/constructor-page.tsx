@@ -7,6 +7,7 @@ import { BurgerConstructor } from '../../components';
 import { Preloader } from '../../components/ui';
 import { FC, useEffect } from 'react';
 import { fetchIngredients } from '../../services/slices/ingredient-slice';
+import { checkUserAuth } from '../../services/slices/user-slice';
 
 export const ConstructorPage: FC = () => {
   const dispatch = useDispatch();
@@ -18,6 +19,7 @@ export const ConstructorPage: FC = () => {
 
   useEffect(() => {
     dispatch(fetchIngredients());
+    dispatch(checkUserAuth());
   }, []);
 
   return (

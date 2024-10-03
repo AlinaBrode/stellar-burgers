@@ -114,6 +114,7 @@ export const userSlice = createSlice({
       .addCase(getUser.fulfilled, (state, action) => {
         state.data = action.payload.user;
         state.isAuthChecked = true;
+        state.isAuthenticated = true;
       });
   }
 });
