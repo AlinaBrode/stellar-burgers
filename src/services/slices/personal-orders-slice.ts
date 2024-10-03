@@ -2,7 +2,7 @@ import { getOrdersApi } from '@api';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { TOrder } from '@utils-types';
 
-interface PersonalOrders {
+export interface PersonalOrders {
   orders: TOrder[];
   isLoading: boolean;
   error: string;
@@ -13,6 +13,7 @@ const initialState: PersonalOrders = {
   isLoading: false,
   error: ''
 };
+
 export const fetchPersonalOrders = createAsyncThunk(
   'personalOrders/fetchPersonalOrders',
   async (_, { rejectWithValue }) => {

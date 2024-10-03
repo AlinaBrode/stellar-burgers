@@ -8,9 +8,8 @@ import {
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { TUser } from '@utils-types';
 import { deleteCookie, getCookie, setCookie } from '../../utils/cookie';
-import { useDispatch } from '../store';
 
-interface TUserState {
+export interface TUserState {
   isAuthChecked: boolean;
   isAuthenticated: boolean;
   data: TUser | null;
@@ -115,11 +114,12 @@ export const userSlice = createSlice({
       .addCase(getUser.fulfilled, (state, action) => {
         state.data = action.payload.user;
         state.isAuthChecked = true;
+        state.isAuthenticated = true;
       });
   }
 });
 
-const { authChecked, userLogout } = userSlice.actions;
+export const { authChecked, userLogout } = userSlice.actions;
 
 export const checkUserAuth = createAsyncThunk(
   'user/checkUser',

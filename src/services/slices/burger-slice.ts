@@ -39,14 +39,19 @@ const burgerSlice = createSlice({
     },
     deleteIngredient(state, action: PayloadAction<number>) {
       state.constructorItems.ingredients.splice(action.payload, 1);
+    },
+    clearOrder(state) {
+      state.constructorItems.ingredients = [];
+      state.constructorItems.bun = null;
     }
   }
 });
 
 export const {
   addIngredient,
+  clearOrder,
+  deleteIngredient,
   moveIngredientUp,
-  moveIngredientDown,
-  deleteIngredient
+  moveIngredientDown
 } = burgerSlice.actions;
 export default burgerSlice.reducer;
