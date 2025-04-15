@@ -24,12 +24,12 @@ export const ProtectedRoute = ({
   }
 
   if (regRoute && data) {
-    return <Navigate replace to='/profile' />;
+    return <Navigate replace to='/stellar-burgers/profile' />;
   }
 
   if (!data) {
     if (!onlyUnAuth && !regRoute) {
-      return <Navigate replace to='/login' />;
+      return <Navigate replace to='/stellar-burgers/login' />;
     }
   }
 
