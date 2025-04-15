@@ -15,7 +15,7 @@ export const AppHeaderUI: FC<TAppHeaderUIProps> = ({ userName }) => (
     <nav className={`${styles.menu} p-4`}>
       <div className={styles.menu_part_left}>
         <NavLink
-          to='/'
+          to='/stellar-burgers/'
           className={({ isActive }) =>
             clsx(styles.link, isActive && styles.link_active)
           }
@@ -30,7 +30,7 @@ export const AppHeaderUI: FC<TAppHeaderUIProps> = ({ userName }) => (
           )}
         </NavLink>
         <NavLink
-          to='/feed'
+          to='/stellar-burgers/feed'
           className={({ isActive }) =>
             clsx(styles.link, isActive && styles.link_active)
           }
@@ -47,7 +47,7 @@ export const AppHeaderUI: FC<TAppHeaderUIProps> = ({ userName }) => (
         <Logo className='' />
       </div>
       <NavLink
-        to='/profile'
+        to='/stellar-burgers/profile'
         className={({ isActive }) =>
           clsx(styles.link, isActive && styles.link_active)
         }

@@ -39,7 +39,7 @@ const App = () => {
           <Route path='/stellar-burgers/feed' element={<Feed />} />
           <Route path='*' element={<NotFound404 />} />
           <Route
-            path='/login'
+            path='/stellar-burgers/login'
             element={
               <ProtectedRoute onlyUnAuth>
                 <Login />
@@ -47,7 +47,7 @@ const App = () => {
             }
           />
           <Route
-            path='/stellar-burgers/register'
+            path='/stellar-burgers/stellar-burgers/register'
             element={
               <ProtectedRoute regRoute>
                 <Register />
@@ -55,7 +55,7 @@ const App = () => {
             }
           />
           <Route
-            path='/forgot-password'
+            path='/stellar-burgers/forgot-password'
             element={
               <ProtectedRoute regRoute>
                 <ForgotPassword />
@@ -63,7 +63,7 @@ const App = () => {
             }
           />
           <Route
-            path='/reset-password'
+            path='/stellar-burgers/reset-password'
             element={
               <ProtectedRoute regRoute>
                 <ResetPassword />
@@ -71,7 +71,7 @@ const App = () => {
             }
           />
           <Route
-            path='/profile'
+            path='/stellar-burgers/profile'
             element={
               <ProtectedRoute>
                 <Profile />
@@ -79,7 +79,7 @@ const App = () => {
             }
           />
           <Route
-            path='/profile/orders'
+            path='/stellar-burgers/profile/orders'
             element={
               <ProtectedRoute>
                 <ProfileOrders />
@@ -91,7 +91,7 @@ const App = () => {
         {background && (
           <Routes>
             <Route
-              path='/feed/:number'
+              path='/stellar-burgers/feed/:number'
               element={
                 <Modal title='order info' onClose={() => navigate(-1)}>
                   <OrderInfo />
@@ -99,7 +99,7 @@ const App = () => {
               }
             />
             <Route
-              path='/ingredients/:id'
+              path='/stellar-burgers/ingredients/:id'
               element={
                 <Modal
                   title='order info'
@@ -112,7 +112,7 @@ const App = () => {
               }
             />
             <Route
-              path='/profile/orders/:number'
+              path='/stellar-burgers/profile/orders/:number'
               element={
                 <Modal title='order info' onClose={() => navigate(-1)}>
                   <OrderInfo />
