@@ -35,8 +35,8 @@ const App = () => {
       <div className={styles.app}>
         <AppHeader />
         <Routes location={background || location}>
-          <Route path='/' element={<ConstructorPage />} />
-          <Route path='/feed' element={<Feed />} />
+          <Route path='/stellar-burgers/' element={<ConstructorPage />} />
+          <Route path='/stellar-burgers/feed' element={<Feed />} />
           <Route path='*' element={<NotFound404 />} />
           <Route
             path='/login'
@@ -47,7 +47,7 @@ const App = () => {
             }
           />
           <Route
-            path='/register'
+            path='/stellar-burgers/register'
             element={
               <ProtectedRoute regRoute>
                 <Register />
